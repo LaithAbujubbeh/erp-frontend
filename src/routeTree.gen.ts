@@ -12,8 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as pagesRouteRouteImport } from './routes/(pages)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as pagesSuppliersRouteImport } from './routes/(pages)/suppliers'
 import { Route as pagesProductsRouteImport } from './routes/(pages)/products'
 import { Route as pagesDashboardRouteImport } from './routes/(pages)/dashboard'
+import { Route as pagesCustomersRouteImport } from './routes/(pages)/customers'
+import { Route as pagesCategoriesRouteImport } from './routes/(pages)/categories'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
 
 const pagesRouteRoute = pagesRouteRouteImport.update({
@@ -29,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const pagesSuppliersRoute = pagesSuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => pagesRouteRoute,
+} as any)
 const pagesProductsRoute = pagesProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -37,6 +45,16 @@ const pagesProductsRoute = pagesProductsRouteImport.update({
 const pagesDashboardRoute = pagesDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => pagesRouteRoute,
+} as any)
+const pagesCustomersRoute = pagesCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => pagesRouteRoute,
+} as any)
+const pagesCategoriesRoute = pagesCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
   getParentRoute: () => pagesRouteRoute,
 } as any)
 const authLoginRoute = authLoginRouteImport.update({
@@ -48,14 +66,20 @@ const authLoginRoute = authLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof authLoginRoute
+  '/categories': typeof pagesCategoriesRoute
+  '/customers': typeof pagesCustomersRoute
   '/dashboard': typeof pagesDashboardRoute
   '/products': typeof pagesProductsRoute
+  '/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof authLoginRoute
+  '/categories': typeof pagesCategoriesRoute
+  '/customers': typeof pagesCustomersRoute
   '/dashboard': typeof pagesDashboardRoute
   '/products': typeof pagesProductsRoute
+  '/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -63,22 +87,42 @@ export interface FileRoutesById {
   '/(auth)': typeof authRouteRouteWithChildren
   '/(pages)': typeof pagesRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
+  '/(pages)/categories': typeof pagesCategoriesRoute
+  '/(pages)/customers': typeof pagesCustomersRoute
   '/(pages)/dashboard': typeof pagesDashboardRoute
   '/(pages)/products': typeof pagesProductsRoute
+  '/(pages)/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard' | '/products'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/categories'
+    | '/customers'
+    | '/dashboard'
+    | '/products'
+    | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/products'
+  to:
+    | '/'
+    | '/login'
+    | '/categories'
+    | '/customers'
+    | '/dashboard'
+    | '/products'
+    | '/suppliers'
   id:
     | '__root__'
     | '/'
     | '/(auth)'
     | '/(pages)'
     | '/(auth)/login'
+    | '/(pages)/categories'
+    | '/(pages)/customers'
     | '/(pages)/dashboard'
     | '/(pages)/products'
+    | '/(pages)/suppliers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -110,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(pages)/suppliers': {
+      id: '/(pages)/suppliers'
+      path: '/suppliers'
+      fullPath: '/suppliers'
+      preLoaderRoute: typeof pagesSuppliersRouteImport
+      parentRoute: typeof pagesRouteRoute
+    }
     '/(pages)/products': {
       id: '/(pages)/products'
       path: '/products'
@@ -122,6 +173,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof pagesDashboardRouteImport
+      parentRoute: typeof pagesRouteRoute
+    }
+    '/(pages)/customers': {
+      id: '/(pages)/customers'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof pagesCustomersRouteImport
+      parentRoute: typeof pagesRouteRoute
+    }
+    '/(pages)/categories': {
+      id: '/(pages)/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof pagesCategoriesRouteImport
       parentRoute: typeof pagesRouteRoute
     }
     '/(auth)/login': {
@@ -147,13 +212,19 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 )
 
 interface pagesRouteRouteChildren {
+  pagesCategoriesRoute: typeof pagesCategoriesRoute
+  pagesCustomersRoute: typeof pagesCustomersRoute
   pagesDashboardRoute: typeof pagesDashboardRoute
   pagesProductsRoute: typeof pagesProductsRoute
+  pagesSuppliersRoute: typeof pagesSuppliersRoute
 }
 
 const pagesRouteRouteChildren: pagesRouteRouteChildren = {
+  pagesCategoriesRoute: pagesCategoriesRoute,
+  pagesCustomersRoute: pagesCustomersRoute,
   pagesDashboardRoute: pagesDashboardRoute,
   pagesProductsRoute: pagesProductsRoute,
+  pagesSuppliersRoute: pagesSuppliersRoute,
 }
 
 const pagesRouteRouteWithChildren = pagesRouteRoute._addFileChildren(
