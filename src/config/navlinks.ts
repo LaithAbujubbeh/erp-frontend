@@ -39,7 +39,7 @@ export const navLinks: NavLinkItem[] = [
     label: "Categories",
     to: "/categories",
     icon: Shapes,
-    allowedRoles: ["ADMIN", "MANAGER", "INVENTORY_STAFF"],
+    allowedRoles: ["ADMIN", "MANAGER", "CASHIER", "INVENTORY_STAFF"],
   },
   {
     label: "Customers",

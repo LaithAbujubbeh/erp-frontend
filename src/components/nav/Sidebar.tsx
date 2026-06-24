@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Building2, LogOut, X } from "lucide-react";
 
 import NavLinks from "./NavLinks";
-import type { User } from "../api/auth";
-import { logoutUser } from "../api/auth";
+import type { User } from "../../api/auth";
+import { logoutUser } from "../../api/auth";
 
 type SidebarProps = {
   user: User;

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { UserRole } from "../api/auth";
-import { navLinks } from "../config/navLinks";
+import type { UserRole } from "../../api/auth";
+import { navLinks } from "../../config/navlinks";
 
 type NavLinksProps = {
   role: UserRole;

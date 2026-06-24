@@ -2,9 +2,9 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/nav/Sidebar";
 import { useAuth } from "../../hooks/useAuth";
-import SidebarSkeleton from "../../components/SidebarSkeleton";
+import SidebarSkeleton from "../../components/nav/SidebarSkeleton";
 
 export const Route = createFileRoute("/(pages)")({
   component: RouteComponent,
