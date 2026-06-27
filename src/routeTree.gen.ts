@@ -13,6 +13,7 @@ import { Route as pagesRouteRouteImport } from './routes/(pages)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as pagesSuppliersRouteImport } from './routes/(pages)/suppliers'
+import { Route as pagesPurchasesRouteImport } from './routes/(pages)/purchases'
 import { Route as pagesProductsRouteImport } from './routes/(pages)/products'
 import { Route as pagesDashboardRouteImport } from './routes/(pages)/dashboard'
 import { Route as pagesCustomersRouteImport } from './routes/(pages)/customers'
@@ -35,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
 const pagesSuppliersRoute = pagesSuppliersRouteImport.update({
   id: '/suppliers',
   path: '/suppliers',
+  getParentRoute: () => pagesRouteRoute,
+} as any)
+const pagesPurchasesRoute = pagesPurchasesRouteImport.update({
+  id: '/purchases',
+  path: '/purchases',
   getParentRoute: () => pagesRouteRoute,
 } as any)
 const pagesProductsRoute = pagesProductsRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/customers': typeof pagesCustomersRoute
   '/dashboard': typeof pagesDashboardRoute
   '/products': typeof pagesProductsRoute
+  '/purchases': typeof pagesPurchasesRoute
   '/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRoutesByTo {
@@ -79,6 +86,7 @@ export interface FileRoutesByTo {
   '/customers': typeof pagesCustomersRoute
   '/dashboard': typeof pagesDashboardRoute
   '/products': typeof pagesProductsRoute
+  '/purchases': typeof pagesPurchasesRoute
   '/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRoutesById {
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   '/(pages)/customers': typeof pagesCustomersRoute
   '/(pages)/dashboard': typeof pagesDashboardRoute
   '/(pages)/products': typeof pagesProductsRoute
+  '/(pages)/purchases': typeof pagesPurchasesRoute
   '/(pages)/suppliers': typeof pagesSuppliersRoute
 }
 export interface FileRouteTypes {
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/customers'
     | '/dashboard'
     | '/products'
+    | '/purchases'
     | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/customers'
     | '/dashboard'
     | '/products'
+    | '/purchases'
     | '/suppliers'
   id:
     | '__root__'
@@ -122,6 +133,7 @@ export interface FileRouteTypes {
     | '/(pages)/customers'
     | '/(pages)/dashboard'
     | '/(pages)/products'
+    | '/(pages)/purchases'
     | '/(pages)/suppliers'
   fileRoutesById: FileRoutesById
 }
@@ -159,6 +171,13 @@ declare module '@tanstack/react-router' {
       path: '/suppliers'
       fullPath: '/suppliers'
       preLoaderRoute: typeof pagesSuppliersRouteImport
+      parentRoute: typeof pagesRouteRoute
+    }
+    '/(pages)/purchases': {
+      id: '/(pages)/purchases'
+      path: '/purchases'
+      fullPath: '/purchases'
+      preLoaderRoute: typeof pagesPurchasesRouteImport
       parentRoute: typeof pagesRouteRoute
     }
     '/(pages)/products': {
@@ -216,6 +235,7 @@ interface pagesRouteRouteChildren {
   pagesCustomersRoute: typeof pagesCustomersRoute
   pagesDashboardRoute: typeof pagesDashboardRoute
   pagesProductsRoute: typeof pagesProductsRoute
+  pagesPurchasesRoute: typeof pagesPurchasesRoute
   pagesSuppliersRoute: typeof pagesSuppliersRoute
 }
 
@@ -224,6 +244,7 @@ const pagesRouteRouteChildren: pagesRouteRouteChildren = {
   pagesCustomersRoute: pagesCustomersRoute,
   pagesDashboardRoute: pagesDashboardRoute,
   pagesProductsRoute: pagesProductsRoute,
+  pagesPurchasesRoute: pagesPurchasesRoute,
   pagesSuppliersRoute: pagesSuppliersRoute,
 }
 

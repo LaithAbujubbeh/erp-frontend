@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
@@ -35,8 +35,9 @@ function RouteComponent() {
       </div>
     );
   }
+
   if (!user) {
-    return null;
+    return <Navigate to="/login" />;
   }
 
   return (
