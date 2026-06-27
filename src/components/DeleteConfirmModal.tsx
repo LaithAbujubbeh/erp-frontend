@@ -1,11 +1,22 @@
+type ConfirmVariant = "danger" | "success" | "primary";
+
 type DeleteConfirmModalProps = {
   isOpen: boolean;
   title: string;
   description: string;
   isDeleting?: boolean;
   error?: string;
+  confirmText?: string;
+  loadingText?: string;
+  variant?: ConfirmVariant;
   onClose: () => void;
   onConfirm: () => void;
+};
+
+const variantClasses: Record<ConfirmVariant, string> = {
+  danger: "bg-red-600 hover:bg-red-700",
+  success: "bg-green-600 hover:bg-green-700",
+  primary: "bg-[#2563EB] hover:bg-blue-700",
 };
 
 export default function DeleteConfirmModal({
@@ -14,6 +25,9 @@ export default function DeleteConfirmModal({
   description,
   isDeleting = false,
   error,
+  confirmText = "Delete",
+  loadingText,
+  variant = "danger",
   onClose,
   onConfirm,
 }: DeleteConfirmModalProps) {
@@ -40,16 +54,16 @@ export default function DeleteConfirmModal({
             disabled={isDeleting}
             className="rounded-lg border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-[#0F172A] hover:bg-slate-50 disabled:opacity-60"
           >
-            Cancel
+            Back
           </button>
 
           <button
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className={`rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 ${variantClasses[variant]}`}
           >
-            {isDeleting ? "Deactivating..." : "Deactivate"}
+            {isDeleting ? loadingText || `${confirmText}...` : confirmText}
           </button>
         </div>
       </div>
