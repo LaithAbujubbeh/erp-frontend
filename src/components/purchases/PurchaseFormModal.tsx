@@ -229,11 +229,15 @@ export default function PurchaseFormModal({
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="purchase-supplier"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Supplier
             </label>
 
             <select
+              id="purchase-supplier"
               value={supplierId}
               onChange={(e) => setSupplierId(e.target.value)}
               disabled={suppliersQuery.isPending}
@@ -288,11 +292,15 @@ export default function PurchaseFormModal({
                     className="grid gap-3 rounded-xl border border-[#E2E8F0] p-4 lg:grid-cols-[1fr_120px_140px_120px_auto]"
                   >
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`purchase-item-${index}-product`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Product
                       </label>
 
                       <select
+                        id={`purchase-item-${index}-product`}
                         value={item.productId}
                         onChange={(e) =>
                           handleItemChange(index, "productId", e.target.value)
@@ -315,11 +323,15 @@ export default function PurchaseFormModal({
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`purchase-item-${index}-quantity`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Quantity
                       </label>
 
                       <input
+                        id={`purchase-item-${index}-quantity`}
                         type="number"
                         min="1"
                         value={item.quantity}
@@ -331,11 +343,15 @@ export default function PurchaseFormModal({
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`purchase-item-${index}-unit-cost`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Unit Cost
                       </label>
 
                       <input
+                        id={`purchase-item-${index}-unit-cost`}
                         type="number"
                         min="0"
                         step="0.01"

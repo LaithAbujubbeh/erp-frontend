@@ -198,11 +198,15 @@ export default function CustomerFormModal({
           <form.Field name="name">
             {(field) => (
               <div>
-                <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                <label
+                  htmlFor="customer-name"
+                  className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                >
                   Customer Name
                 </label>
 
                 <input
+                  id="customer-name"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -223,11 +227,15 @@ export default function CustomerFormModal({
             <form.Field name="email">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="customer-email"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Email
                   </label>
 
                   <input
+                    id="customer-email"
                     type="email"
                     value={field.state.value}
                     onBlur={field.handleBlur}
@@ -248,17 +256,27 @@ export default function CustomerFormModal({
             <form.Field name="phone">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="customer-phone"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Phone
                   </label>
 
                   <input
+                    id="customer-phone"
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={10}
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    type="number"
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => {
+                      const onlyDigits = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10);
+                      field.handleChange(onlyDigits);
+                    }}
                     placeholder="0790000000"
-                    maxLength={10}
                     className="w-full rounded-lg border border-[#E2E8F0] px-3 py-2 text-sm outline-none focus:border-[#2563EB]"
                   />
                 </div>
@@ -269,11 +287,15 @@ export default function CustomerFormModal({
           <form.Field name="address">
             {(field) => (
               <div>
-                <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                <label
+                  htmlFor="customer-address"
+                  className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                >
                   Address
                 </label>
 
                 <input
+                  id="customer-address"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -288,11 +310,15 @@ export default function CustomerFormModal({
             <form.Field name="status">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="customer-status"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Status
                   </label>
 
                   <select
+                    id="customer-status"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) =>

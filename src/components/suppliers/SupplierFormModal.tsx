@@ -92,7 +92,9 @@ export default function SupplierFormModal({
       input,
     }: {
       id?: string;
-      input: CreateSupplierInput;
+      input: CreateSupplierInput & {
+        status?: "ACTIVE" | "INACTIVE";
+      };
     }) => {
       if (id) {
         return updateSupplier(id, input);
@@ -111,18 +113,36 @@ export default function SupplierFormModal({
       onChange: supplierSchema,
     },
     onSubmit: ({ value }) => {
-      const input: CreateSupplierInput = {
-        name: value.name,
-        email: value.email || undefined,
-        phone: value.phone || undefined,
-        address: value.address || undefined,
-        status: canManageStatus ? value.status : "ACTIVE",
+      const baseInput: CreateSupplierInput = {
+        name: value.name.trim(),
+        email: value.email.trim() || undefined,
+        phone: value.phone.trim() || undefined,
+        address: value.address.trim() || undefined,
       };
+
+      if (isEditMode && supplier?.id) {
+        saveSupplierMutation.mutate(
+          {
+            id: supplier.id,
+            input: {
+              ...baseInput,
+              status: value.status,
+            },
+          },
+          {
+            onSuccess: () => {
+              form.reset();
+              onClose();
+            },
+          },
+        );
+
+        return;
+      }
 
       saveSupplierMutation.mutate(
         {
-          id: supplier?.id,
-          input,
+          input: baseInput,
         },
         {
           onSuccess: () => {
@@ -194,11 +214,15 @@ export default function SupplierFormModal({
           <form.Field name="name">
             {(field) => (
               <div>
-                <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                <label
+                  htmlFor="supplier-name"
+                  className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                >
                   Supplier Name
                 </label>
 
                 <input
+                  id="supplier-name"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -219,11 +243,15 @@ export default function SupplierFormModal({
             <form.Field name="email">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="supplier-email"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Email
                   </label>
 
                   <input
+                    id="supplier-email"
                     type="email"
                     value={field.state.value}
                     onBlur={field.handleBlur}
@@ -244,16 +272,25 @@ export default function SupplierFormModal({
             <form.Field name="phone">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="supplier-phone"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Phone
                   </label>
-
                   <input
+                    id="supplier-phone"
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={10}
                     value={field.state.value}
-                    type="number"
                     onBlur={field.handleBlur}
-                    max={10}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => {
+                      const onlyDigits = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10);
+                      field.handleChange(onlyDigits);
+                    }}
                     placeholder="0790000000"
                     className="w-full rounded-lg border border-[#E2E8F0] px-3 py-2 text-sm outline-none focus:border-[#2563EB]"
                   />
@@ -265,11 +302,15 @@ export default function SupplierFormModal({
           <form.Field name="address">
             {(field) => (
               <div>
-                <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                <label
+                  htmlFor="supplier-address"
+                  className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                >
                   Address
                 </label>
 
                 <input
+                  id="supplier-address"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -280,15 +321,19 @@ export default function SupplierFormModal({
             )}
           </form.Field>
 
-          {canManageStatus && (
+          {isEditMode && canManageStatus && (
             <form.Field name="status">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="supplier-status"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Status
                   </label>
 
                   <select
+                    id="supplier-status"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) =>

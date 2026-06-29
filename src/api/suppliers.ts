@@ -25,10 +25,15 @@ export type CreateSupplierInput = {
   email?: string;
   phone?: string;
   address?: string;
-  status?: SupplierStatus;
 };
 
-export type UpdateSupplierInput = Partial<CreateSupplierInput>;
+export type UpdateSupplierInput = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  status?: SupplierStatus;
+};
 
 export type Pagination = {
   total: number;

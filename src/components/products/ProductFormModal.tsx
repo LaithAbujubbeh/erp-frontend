@@ -235,11 +235,15 @@ export default function ProductFormModal({
             <form.Field name="name">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="product-name"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Product Name
                   </label>
 
                   <input
+                    id="product-name"
                     type="text"
                     value={field.state.value}
                     onBlur={field.handleBlur}
@@ -260,11 +264,15 @@ export default function ProductFormModal({
             <form.Field name="sku">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="sku-name"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     SKU
                   </label>
 
                   <input
+                    id="sku-name"
                     type="text"
                     value={field.state.value}
                     onBlur={field.handleBlur}
@@ -286,11 +294,15 @@ export default function ProductFormModal({
           <form.Field name="description">
             {(field) => (
               <div>
-                <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                <label
+                  htmlFor="description-name"
+                  className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                >
                   Description
                 </label>
 
                 <textarea
+                  id="description-name"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -306,11 +318,15 @@ export default function ProductFormModal({
             <form.Field name="buyingPrice">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="buying-price"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Buying Price
                   </label>
 
                   <input
+                    id="buying-price"
                     type="number"
                     step="0.01"
                     min="0"
@@ -333,11 +349,15 @@ export default function ProductFormModal({
             <form.Field name="sellingPrice">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="selling-price"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Selling Price
                   </label>
 
                   <input
+                    id="selling-price"
                     type="number"
                     step="0.01"
                     min="0"
@@ -362,11 +382,15 @@ export default function ProductFormModal({
             <form.Field name="quantity">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="quantity"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Quantity
                   </label>
 
                   <input
+                    id="quantity"
                     type="number"
                     min="0"
                     value={field.state.value}
@@ -388,11 +412,15 @@ export default function ProductFormModal({
             <form.Field name="lowStockThreshold">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="low-stock"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Low Stock Threshold
                   </label>
 
                   <input
+                    id="low-stock"
                     type="number"
                     min="0"
                     value={field.state.value}
@@ -416,10 +444,14 @@ export default function ProductFormModal({
             <form.Field name="categoryId">
               {(field) => (
                 <div>
-                  <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                  <label
+                    htmlFor="category"
+                    className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                  >
                     Category
                   </label>
                   <select
+                    id="category"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -454,11 +486,15 @@ export default function ProductFormModal({
               <form.Field name="status">
                 {(field) => (
                   <div>
-                    <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+                    <label
+                      htmlFor="status"
+                      className="mb-1 block text-sm font-semibold text-[#0F172A]"
+                    >
                       Status
                     </label>
 
                     <select
+                      id="status"
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) =>
