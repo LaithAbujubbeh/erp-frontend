@@ -109,11 +109,15 @@ export default function CreateUserModal({
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="create-user-name"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Name
             </label>
 
             <input
+              id="create-user-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
@@ -122,12 +126,16 @@ export default function CreateUserModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="create-user-email"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Email
             </label>
 
             <input
               type="email"
+              id="create-user-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="john@example.com"
@@ -136,11 +144,15 @@ export default function CreateUserModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="create-user-password"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Password
             </label>
 
             <input
+              id="create-user-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -150,11 +162,15 @@ export default function CreateUserModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="create-user-role"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Role
             </label>
 
             <select
+              id="create-user-role"
               value={role}
               onChange={(e) => setRole(e.target.value as UserRole)}
               className="w-full rounded-lg border border-[#E2E8F0] px-3 py-2 text-sm outline-none focus:border-[#2563EB]"
