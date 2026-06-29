@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as pagesRouteRouteImport } from './routes/(pages)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as pagesUsersRouteImport } from './routes/(pages)/users'
 import { Route as pagesSuppliersRouteImport } from './routes/(pages)/suppliers'
 import { Route as pagesStockMovementsRouteImport } from './routes/(pages)/stock-movements'
 import { Route as pagesReportsRouteImport } from './routes/(pages)/reports'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const pagesUsersRoute = pagesUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => pagesRouteRoute,
 } as any)
 const pagesSuppliersRoute = pagesSuppliersRouteImport.update({
   id: '/suppliers',
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/reports': typeof pagesReportsRoute
   '/stock-movements': typeof pagesStockMovementsRoute
   '/suppliers': typeof pagesSuppliersRoute
+  '/users': typeof pagesUsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/reports': typeof pagesReportsRoute
   '/stock-movements': typeof pagesStockMovementsRoute
   '/suppliers': typeof pagesSuppliersRoute
+  '/users': typeof pagesUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/(pages)/reports': typeof pagesReportsRoute
   '/(pages)/stock-movements': typeof pagesStockMovementsRoute
   '/(pages)/suppliers': typeof pagesSuppliersRoute
+  '/(pages)/users': typeof pagesUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/stock-movements'
     | '/suppliers'
+    | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/stock-movements'
     | '/suppliers'
+    | '/users'
   id:
     | '__root__'
     | '/'
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/(pages)/reports'
     | '/(pages)/stock-movements'
     | '/(pages)/suppliers'
+    | '/(pages)/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -213,6 +225,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(pages)/users': {
+      id: '/(pages)/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof pagesUsersRouteImport
+      parentRoute: typeof pagesRouteRoute
     }
     '/(pages)/suppliers': {
       id: '/(pages)/suppliers'
@@ -317,6 +336,7 @@ interface pagesRouteRouteChildren {
   pagesReportsRoute: typeof pagesReportsRoute
   pagesStockMovementsRoute: typeof pagesStockMovementsRoute
   pagesSuppliersRoute: typeof pagesSuppliersRoute
+  pagesUsersRoute: typeof pagesUsersRoute
 }
 
 const pagesRouteRouteChildren: pagesRouteRouteChildren = {
@@ -330,6 +350,7 @@ const pagesRouteRouteChildren: pagesRouteRouteChildren = {
   pagesReportsRoute: pagesReportsRoute,
   pagesStockMovementsRoute: pagesStockMovementsRoute,
   pagesSuppliersRoute: pagesSuppliersRoute,
+  pagesUsersRoute: pagesUsersRoute,
 }
 
 const pagesRouteRouteWithChildren = pagesRouteRoute._addFileChildren(
