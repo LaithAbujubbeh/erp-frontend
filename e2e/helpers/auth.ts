@@ -2,22 +2,32 @@ import { expect, type Page } from "@playwright/test";
 
 type TestRole = "admin" | "manager" | "cashier" | "inventory";
 
+function getEnv(name: string) {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing environment variable: ${name}`);
+  }
+
+  return value;
+}
+
 const TEST_USERS = {
   admin: {
-    email: "laith@laith.com",
-    password: "laith123",
+    email: getEnv("E2E_ADMIN_EMAIL"),
+    password: getEnv("E2E_ADMIN_PASSWORD"),
   },
   manager: {
-    email: "manager@test.com",
-    password: "123456",
+    email: getEnv("E2E_MANAGER_EMAIL"),
+    password: getEnv("E2E_MANAGER_PASSWORD"),
   },
   cashier: {
-    email: "cashier@test.com",
-    password: "123456",
+    email: getEnv("E2E_CASHIER_EMAIL"),
+    password: getEnv("E2E_CASHIER_PASSWORD"),
   },
   inventory: {
-    email: "moe@moe.com",
-    password: "123456",
+    email: getEnv("E2E_INVENTORY_EMAIL"),
+    password: getEnv("E2E_INVENTORY_PASSWORD"),
   },
 };
 
