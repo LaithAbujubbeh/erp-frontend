@@ -238,11 +238,15 @@ export default function OrderFormModal({
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="order-customer"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Customer
             </label>
 
             <select
+              id="order-customer"
               value={customerId}
               onChange={(e) => setCustomerId(e.target.value)}
               disabled={customersQuery.isPending}
@@ -301,11 +305,15 @@ export default function OrderFormModal({
                     className="grid gap-3 rounded-xl border border-[#E2E8F0] p-4 lg:grid-cols-[1fr_110px_130px_130px_120px_auto]"
                   >
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`order-item-${index}-product`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Product
                       </label>
 
                       <select
+                        id={`order-item-${index}-product`}
                         value={item.productId}
                         onChange={(e) =>
                           handleItemChange(index, "productId", e.target.value)
@@ -334,11 +342,15 @@ export default function OrderFormModal({
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`order-item-${index}-quantity`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Quantity
                       </label>
 
                       <input
+                        id={`order-item-${index}-quantity`}
                         type="number"
                         min="1"
                         max={selectedProduct?.quantity}
@@ -351,11 +363,15 @@ export default function OrderFormModal({
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-semibold text-[#64748B]">
+                      <label
+                        htmlFor={`order-item-${index}-unit-price`}
+                        className="mb-1 block text-xs font-semibold text-[#64748B]"
+                      >
                         Unit Price
                       </label>
 
                       <input
+                        id={`order-item-${index}-unit-price`}
                         type="number"
                         min="0"
                         step="0.01"

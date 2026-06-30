@@ -146,11 +146,15 @@ export default function ExpenseFormModal({
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="expense-title"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Title
             </label>
 
             <input
+              id="expense-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Office rent"
@@ -160,11 +164,15 @@ export default function ExpenseFormModal({
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+              <label
+                htmlFor="expense-category"
+                className="mb-1 block text-sm font-semibold text-[#0F172A]"
+              >
                 Category
               </label>
 
               <input
+                id="expense-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="Rent, Utilities, Salaries..."
@@ -173,11 +181,15 @@ export default function ExpenseFormModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+              <label
+                htmlFor="expense-amount"
+                className="mb-1 block text-sm font-semibold text-[#0F172A]"
+              >
                 Amount
               </label>
 
               <input
+                id="expense-amount"
                 type="number"
                 min="0"
                 step="0.01"
@@ -190,11 +202,15 @@ export default function ExpenseFormModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="expense-date"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Expense Date
             </label>
 
             <input
+              id="expense-date"
               type="date"
               value={expenseDate}
               onChange={(e) => setExpenseDate(e.target.value)}
@@ -203,11 +219,15 @@ export default function ExpenseFormModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0F172A]">
+            <label
+              htmlFor="expense-description"
+              className="mb-1 block text-sm font-semibold text-[#0F172A]"
+            >
               Description
             </label>
 
             <textarea
+              id="expense-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Optional notes about this expense..."
