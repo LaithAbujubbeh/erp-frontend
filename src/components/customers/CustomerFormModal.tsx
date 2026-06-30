@@ -38,12 +38,11 @@ const customerSchema = z.object({
   name: z.string().min(1, "Customer name is required"),
   email: z
     .string()
-    .optional()
     .refine((value) => !value || z.string().email().safeParse(value).success, {
       message: "Invalid email address",
     }),
-  phone: z.string().max(10).optional(),
-  address: z.string().optional(),
+  phone: z.string().max(10),
+  address: z.string(),
   status: z.enum(["ACTIVE", "INACTIVE"]),
 });
 

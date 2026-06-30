@@ -48,8 +48,9 @@ function ProductsRouteState() {
     navigate({
       search: {
         page: 1,
-        search: searchInput.trim(),
+        search: searchInput,
         status,
+        categoryId,
       },
     });
   }

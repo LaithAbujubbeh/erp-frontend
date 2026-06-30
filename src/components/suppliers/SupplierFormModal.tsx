@@ -38,12 +38,11 @@ const supplierSchema = z.object({
   name: z.string().min(1, "Supplier name is required"),
   email: z
     .string()
-    .optional()
     .refine((value) => !value || z.string().email().safeParse(value).success, {
       message: "Invalid email address",
     }),
-  phone: z.string().optional(),
-  address: z.string().optional(),
+  phone: z.string(),
+  address: z.string(),
   status: z.enum(["ACTIVE", "INACTIVE"]),
 });
 

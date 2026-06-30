@@ -17,7 +17,6 @@ import {
 import { getDashboardSummary } from "../../api/dashboard";
 import StatCard from "../../components/StatCard";
 import StatusBadge from "../../components/StatusBadge";
-import { getCustomers } from "../../api/customers";
 
 export const Route = createFileRoute("/(pages)/dashboard")({
   component: RouteComponent,

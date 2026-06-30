@@ -29,7 +29,7 @@ const defaultValues: CategoryFormValues = {
 
 const categorySchema = z.object({
   name: z.string().min(1, "Category name is required"),
-  description: z.string().optional(),
+  description: z.string(),
 });
 
 function getFieldError(errors: unknown[]) {

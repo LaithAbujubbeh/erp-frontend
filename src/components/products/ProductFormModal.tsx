@@ -33,9 +33,9 @@ type ProductFormValues = {
 
 const productSchema = z
   .object({
-    name: z.string().min(1, "Name is required"),
+    name: z.string().min(1, "Product name is required"),
     sku: z.string().min(1, "SKU is required"),
-    description: z.string().optional(),
+    description: z.string(),
     buyingPrice: z.string().min(1, "Buying price is required"),
     sellingPrice: z.string().min(1, "Selling price is required"),
     quantity: z.string().min(1, "Quantity is required"),
@@ -116,13 +116,24 @@ export default function ProductFormModal({
   const categories = categoriesQuery.data ?? [];
   const hasNoCategories = !categoriesQuery.isPending && categories.length === 0;
 
+  type SaveProductInput =
+    | {
+        mode: "create";
+        input: CreateProductInput;
+      }
+    | {
+        mode: "update";
+        id: string;
+        input: Partial<CreateProductInput>;
+      };
+
   const saveProductMutation = useMutation({
-    mutationFn: ({ id, input }: { id?: string; input: CreateProductInput }) => {
-      if (id) {
-        return updateProduct(id, input);
+    mutationFn: (variables: SaveProductInput) => {
+      if (variables.mode === "update") {
+        return updateProduct(variables.id, variables.input);
       }
 
-      return createProduct(input);
+      return createProduct(variables.input);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -135,7 +146,29 @@ export default function ProductFormModal({
       onChange: productSchema,
     },
     onSubmit: ({ value }) => {
-      const input: Partial<CreateProductInput> = {
+      if (isEditMode && product?.id) {
+        const updateInput: Partial<CreateProductInput> = {
+          name: value.name,
+          sku: value.sku,
+          description: value.description || undefined,
+          buyingPrice: Number(value.buyingPrice),
+          sellingPrice: Number(value.sellingPrice),
+          quantity: Number(value.quantity),
+          lowStockThreshold: Number(value.lowStockThreshold),
+          categoryId: value.categoryId,
+          status: canManageStatus ? value.status : "ACTIVE",
+        };
+
+        saveProductMutation.mutate({
+          mode: "update",
+          id: product.id,
+          input: updateInput,
+        });
+
+        return;
+      }
+
+      const createInput: CreateProductInput = {
         name: value.name,
         sku: value.sku,
         description: value.description || undefined,
@@ -144,22 +177,13 @@ export default function ProductFormModal({
         quantity: Number(value.quantity),
         lowStockThreshold: Number(value.lowStockThreshold),
         categoryId: value.categoryId,
-
         status: canManageStatus ? value.status : "ACTIVE",
       };
 
-      saveProductMutation.mutate(
-        {
-          id: product?.id,
-          input,
-        },
-        {
-          onSuccess: () => {
-            form.reset();
-            onClose();
-          },
-        },
-      );
+      saveProductMutation.mutate({
+        mode: "create",
+        input: createInput,
+      });
     },
   });
 

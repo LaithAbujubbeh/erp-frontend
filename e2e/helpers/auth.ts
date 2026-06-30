@@ -1,6 +1,35 @@
-import { expect, type Page } from "@playwright/test";
+import { expect, type Page, defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
 
 type TestRole = "admin" | "manager" | "cashier" | "inventory";
+
+dotenv.config({
+  path: ".env.e2e",
+});
+
+export default defineConfig({
+  testDir: "./e2e",
+  timeout: 30_000,
+  fullyParallel: false,
+  retries: 0,
+  use: {
+    baseURL: "http://localhost:5173",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
+  },
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:5173",
+    reuseExistingServer: true,
+  },
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+    },
+  ],
+});
 
 function getEnv(name: string) {
   const value = process.env[name];

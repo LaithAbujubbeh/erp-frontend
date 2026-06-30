@@ -47,6 +47,7 @@ export default function ExpenseFormModal({
       handleClose();
     },
   });
+  const resetSaveExpenseMutation = saveExpenseMutation.reset;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -57,8 +58,9 @@ export default function ExpenseFormModal({
     setDescription(expense?.description ?? "");
     setExpenseDate(getDateInputValue(expense?.expenseDate));
     setFormError("");
-    saveExpenseMutation.reset();
-  }, [isOpen, expense]);
+
+    resetSaveExpenseMutation();
+  }, [isOpen, expense, resetSaveExpenseMutation]);
 
   function handleClose() {
     setTitle("");

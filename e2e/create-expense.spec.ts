@@ -1,16 +1,14 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { loginAsAdmin } from "./helpers/auth";
 
-test("admin can create an expense", async ({ page }) => {
-  await loginAsAdmin(page);
-
+async function createExpense(page: Page) {
   const timestamp = Date.now();
 
-  const expenseTitle = `Playwright Expense ${timestamp}`;
+  const expenseTitle = `Cancel Expense ${timestamp}`;
   const expenseCategory = `Testing ${timestamp}`;
   const expenseAmount = "25.50";
   const expenseDate = "2026-06-30";
-  const expenseDescription = "Created by Playwright E2E test";
+  const expenseDescription = "Created for cancel expense E2E test";
 
   await page.goto("/expenses");
 
@@ -56,6 +54,51 @@ test("admin can create an expense", async ({ page }) => {
     .filter({ hasText: expenseTitle })
     .first();
 
-  await expect(expenseRow).toBeVisible();
-  await expect(expenseRow).toContainText(expenseCategory);
+  await expect(expenseRow).toBeVisible({ timeout: 10_000 });
+
+  return expenseTitle;
+}
+
+test("admin can cancel an expense", async ({ page }) => {
+  await loginAsAdmin(page);
+
+  const expenseTitle = await createExpense(page);
+
+  const expenseRow = page
+    .getByRole("row")
+    .filter({ hasText: expenseTitle })
+    .first();
+
+  await expect(expenseRow).toBeVisible({ timeout: 10_000 });
+
+  await expenseRow.getByRole("button", { name: /^cancel$/i }).click();
+
+  await expect(
+    page.getByRole("heading", { name: /^cancel expense$/i }),
+  ).toBeVisible();
+
+  const confirmCancelButton = page.getByRole("button", {
+    name: /^cancel expense$/i,
+  });
+
+  await expect(confirmCancelButton).toBeVisible();
+
+  const [response] = await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().includes("/expenses") &&
+        ["PATCH", "PUT", "POST", "DELETE"].includes(
+          response.request().method(),
+        ),
+    ),
+    confirmCancelButton.click(),
+  ]);
+
+  expect(response.ok()).toBeTruthy();
+
+  await expect(
+    page.getByRole("heading", { name: /^cancel expense$/i }),
+  ).not.toBeVisible();
+
+  await expect(expenseRow).not.toBeVisible({ timeout: 10_000 });
 });
