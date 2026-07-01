@@ -37,12 +37,12 @@ export default function Sidebar({ user, isOpen, onClose }: SidebarProps) {
       )}
 
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col bg-[#2E3039] p-3 text-[#C3C6D7] transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-dvh w-72 flex-col overflow-hidden bg-[#2E3039] p-3 text-[#C3C6D7] transition-transform duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="mb-8 flex items-center gap-3">
+        <div className="mb-8 flex shrink-0 items-center gap-3">
           <div className="flex size-10 items-center justify-center rounded bg-[#2563EB]">
             <Building2 width={28} height={28} color="white" />
           </div>
@@ -63,14 +63,16 @@ export default function Sidebar({ user, isOpen, onClose }: SidebarProps) {
         </div>
 
         {/* User info */}
-        <div className="mb-6 rounded bg-[#252730] p-3">
+        <div className="mb-6 shrink-0 rounded bg-[#252730] p-3">
           <p className="text-sm font-semibold text-white">{user.name}</p>
           <p className="text-xs text-[#C3C6D7]">{user.role}</p>
         </div>
 
-        {/* Links */}
-        <nav className="flex w-full flex-1 flex-col gap-1 ">
-          <NavLinks role={user.role} onNavigate={onClose} />
+        {/* Links - scrollable area */}
+        <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1">
+          <div className="flex flex-col gap-1">
+            <NavLinks role={user.role} onNavigate={onClose} />
+          </div>
         </nav>
 
         {/* Logout */}
@@ -78,7 +80,7 @@ export default function Sidebar({ user, isOpen, onClose }: SidebarProps) {
           type="button"
           onClick={() => logoutMutation.mutate()}
           disabled={logoutMutation.isPending}
-          className="mt-auto flex w-full gap-3 rounded px-4 py-3 hover:bg-red-600 hover:text-white disabled:opacity-60"
+          className="mt-3 flex shrink-0 w-full gap-3 rounded px-4 py-3 hover:bg-red-600 hover:text-white disabled:opacity-60"
         >
           <LogOut />
           {logoutMutation.isPending ? "Logging out..." : "Logout"}
